@@ -4,7 +4,7 @@
       <v-card class="py-4 text-center">
         <v-card-title class="justify-center"> Group: ABCDGO </v-card-title>
         <v-card-subtitle> Member: </v-card-subtitle>
-        <v-card-subtitle v-for="item in items" :key="item">
+        <v-card-subtitle v-for="(item, i) in items" :key="i">
           {{ item.name }} - {{ item.matric }}
         </v-card-subtitle>
       </v-card>

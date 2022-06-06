@@ -38,7 +38,7 @@ export default {
 
     // server-side
     this.socket.on("connect", () => {
-      console.log(this.socket.id); // ojIckSD2jqNzOqIrAGzL
+      console.log("socket id: " + this.socket.id); // ojIckSD2jqNzOqIrAGzL
     });
 
     function get_socket(id) {
