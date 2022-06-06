@@ -2,7 +2,7 @@
   <v-row>
     <v-col cols="12">
       <v-row>
-        <v-col cols="4">
+        <v-col cols="12" sm="4">
           <v-card class="mx-auto" max-width="344">
             <v-card-text>
               <div>Word of the Day</div>
@@ -18,7 +18,7 @@
             </v-card-actions>
           </v-card>
         </v-col>
-        <v-col cols="4">
+        <v-col cols="12" sm="4">
           <v-card class="mx-auto" max-width="344">
             <v-card-text>
               <div>Word of the Day</div>
@@ -34,7 +34,7 @@
             </v-card-actions>
           </v-card>
         </v-col>
-        <v-col cols="4">
+        <v-col cols="12" sm="4">
           <v-card class="mx-auto" max-width="344">
             <v-card-text>
               <div>Word of the Day</div>

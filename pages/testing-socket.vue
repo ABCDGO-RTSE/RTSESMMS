@@ -1,14 +1,12 @@
 <template>
   <v-row>
-    <v-col cols="8" class="text-center">
+    <v-col cols="12" class="text-center">
       <v-row>
-        <v-col>
-          <h1>{{ checking }}</h1>
-        </v-col>
+        <v-col> </v-col>
       </v-row>
       <v-row>
         <v-col class="text-center">
-          <h1>Message: {{ latestTickId }}</h1>
+          <h1>Ticking: {{ latestTickId }}</h1>
         </v-col>
       </v-row>
     </v-col>
@@ -17,6 +15,11 @@
 
 <script>
 export default {
+  head() {
+    return {
+      title: "Testing",
+    };
+  },
   data() {
     return {
       latestTickId: 0,
@@ -37,6 +40,12 @@ export default {
     this.socket.on("connect", () => {
       console.log(this.socket.id); // ojIckSD2jqNzOqIrAGzL
     });
+
+    function get_socket(id) {
+      console.log("socket: " + id);
+    }
+
+    this.socket.on("socket id", get_socket);
   },
 };
 </script>

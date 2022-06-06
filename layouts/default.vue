@@ -59,6 +59,11 @@ export default {
           title: "Statics",
           to: "/statics",
         },
+        {
+          icon: "mdi-chart-bubble",
+          title: "Testing Socket",
+          to: "/testing-socket",
+        },
       ],
       miniVariant: false,
       right: true,

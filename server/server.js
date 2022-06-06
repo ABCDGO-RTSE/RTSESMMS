@@ -15,17 +15,17 @@ var i = 0;
 setInterval(() => {
     i++;
     io.emit("tick", i);
-    io.emit("check", "hello world")
 }, 1000);
 
 // server-side
 io.on("connection", (socket) => {
     console.log(socket.id); // ojIckSD2jqNzOqIrAGzL
+    io.emit("socket id", socket.id)
 });
 
 console.log("socket.io server now sends 'tick' event with 'tickId' parameter every second ...")
 
 // Since we are a serverMiddleware, we have to return a handler, even if this it does nothing
 export default function (req, res, next) {
-    next()
+    next();
 }
