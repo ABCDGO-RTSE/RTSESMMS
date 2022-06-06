@@ -3,8 +3,8 @@ import colors from 'vuetify/es5/util/colors'
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - rtse_soil_system',
-    title: 'rtse_soil_system',
+    titleTemplate: '%s - Soil Moisture Monitoring Sesnsor',
+    title: 'Soil Moisture Monitoring Sesnsor',
     htmlAttrs: {
       lang: 'en'
     },
