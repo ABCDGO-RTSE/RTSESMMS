@@ -25,6 +25,28 @@ io.on("connection", (socket) => {
 
 console.log("socket.io server now sends 'tick' event with 'tickId' parameter every second ...")
 
+const { SerialPort } = require('serialport')
+const { ReadlineParser } = require('@serialport/parser-readline')
+
+var port = new SerialPort({
+    path: '/dev/cu.usbserial-0001',
+    baudRate: 115200,
+    dataBits: 8,
+    parity: 'none',
+    stopBits: 1,
+    flowControl: false
+})
+
+const parser = port.pipe(new ReadlineParser({ delimiter: '\r\n' }));
+
+parser.on('data', function (data) {
+
+    // console.log('Received data from port: ' + data);
+
+    io.emit('data_detail', data);
+
+});
+
 // Since we are a serverMiddleware, we have to return a handler, even if this it does nothing
 export default function (req, res, next) {
     next();

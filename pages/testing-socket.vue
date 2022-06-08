@@ -9,6 +9,11 @@
           <h1>Ticking: {{ latestTickId }}</h1>
         </v-col>
       </v-row>
+      <v-row>
+        <v-col class="text-center">
+          <h1>Data : {{ data }} %</h1>
+        </v-col>
+      </v-row>
     </v-col>
   </v-row>
 </template>
@@ -23,7 +28,7 @@ export default {
   data() {
     return {
       latestTickId: 0,
-      checking: "",
+      data: "",
     };
   },
   mounted() {
@@ -41,11 +46,10 @@ export default {
       console.log("socket id: " + this.socket.id); // ojIckSD2jqNzOqIrAGzL
     });
 
-    function get_socket(id) {
-      console.log("socket: " + id);
-    }
-
-    this.socket.on("socket id", get_socket);
+    this.socket.on("data_detail", (data) => {
+      console.log("data details: " + data);
+      this.data = data;
+    });
   },
 };
 </script>
