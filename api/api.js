@@ -31,6 +31,18 @@ app.get('/test', function (req, res) {
 
 // });
 
+const io = require("socket.io")(3002, {
+    cors: {
+        origin: process.env.APP_URL,
+        credentials: true
+    }
+});
+
+app.post('/get_sensor_data', async (req, res) => {
+    let body = req;
+    io.emit('data', body);
+})
+
 export default {
     path: '/api',
     handler: app
