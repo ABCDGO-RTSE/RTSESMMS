@@ -38,8 +38,6 @@ export default {
     const socket = io(process.env.socket_url);
     // const socket = io("http://localhost:4000");
 
-    console.log(process.env.socket_url);
-
     socket.on("connect", () => {
       console.log("socket id: " + socket.id); // ojIckSD2jqNzOqIrAGzL
     });

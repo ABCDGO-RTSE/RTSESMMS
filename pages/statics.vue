@@ -38,6 +38,7 @@
 
 <script>
 import PieChart from "../components/PieChart.vue";
+import { io } from "socket.io-client";
 
 export default {
   name: "StaticsPage",
@@ -53,14 +54,12 @@ export default {
     };
   },
   mounted() {
-    // // use "main" socket defined in nuxt.config.js
-    this.socket = this.$nuxtSocket({
-      name: "main", // select "main" socket from nuxt.config.js - we could also skip this because "main" is the default socket
-    });
-    this.socket.on("data_detail", (data) => {
+   const socket = io(process.env.socket_url);
+    socket.on("receive_data", (data) => {
       // console.log("data details: " + data);
       this.sensor_data = data;
     });
+
   },
   computed: {
     barChartData: function () {
