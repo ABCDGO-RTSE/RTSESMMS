@@ -45,8 +45,7 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios',
-    'nuxt-socket-io'
+    '@nuxtjs/axios'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -77,15 +76,18 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
   },
+  env: {
+    socket_url: process.env.SOCKET_URL || "http://localhost:4000"
+  }
 
-  // socket.io configuration
-  io: {
-    // we could have multiple sockets that we identify with names
-    // one of these sockets may have set "default" to true
-    sockets: [{
-      default: true, // make this the default socket
-      name: 'main', // give it a name that we can later use to choose this socket in the .vue file
-      url: process.env.APP_URL + ':3001' // URL wherever your socket IO server runs
-    }]
-  },
+  // // socket.io configuration
+  // io: {
+  //   // we could have multiple sockets that we identify with names
+  //   // one of these sockets may have set "default" to true
+  //   sockets: [{
+  //     default: true, // make this the default socket
+  //     name: 'main', // give it a name that we can later use to choose this socket in the .vue file
+  //     url: "http://localhost:4000" // URL wherever your socket IO server runs
+  //   }]
+  // },
 }
