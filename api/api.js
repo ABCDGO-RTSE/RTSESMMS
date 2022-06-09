@@ -31,16 +31,31 @@ app.get('/test', function (req, res) {
 
 // });
 
-const io = require("socket.io")(3002, {
-    cors: {
-        origin: process.env.APP_URL,
-        credentials: true
-    }
-});
+// const io = require("socket.io")(3002, {
+//     cors: {
+//         origin: process.env.APP_URL,
+//         credentials: true
+//     }
+// });
+
+
+// const io = require("socket.io")(4000, {
+//     cors: {
+//         origin: process.env.APP_URL,
+//         credentials: true
+//     }
+// })
+
+// var i = 0
+
+// setInterval(() => {
+//     i++;
+//     io.emit("tick", i);
+// }, 1000);
 
 app.post('/get_sensor_data', async (req, res) => {
     let body = req;
-    io.emit('data', body);
+    // io.emit('data', body);
 })
 
 export default {

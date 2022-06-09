@@ -6,7 +6,7 @@
       </v-row>
       <v-row>
         <v-col class="text-center">
-          <h1>Ticking: {{ latestTickId }}</h1>
+          <h1>Socket Server Ticking: {{ latestTickId }}</h1>
         </v-col>
       </v-row>
       <v-row>
@@ -19,6 +19,8 @@
 </template>
 
 <script>
+import { io } from "socket.io-client";
+
 export default {
   head() {
     return {
@@ -32,21 +34,19 @@ export default {
     };
   },
   mounted() {
-    // use "main" socket defined in nuxt.config.js
-    this.socket = this.$nuxtSocket({
-      name: "main", // select "main" socket from nuxt.config.js - we could also skip this because "main" is the default socket
-    });
-
-    this.socket.on("tick", (tickId) => {
-      this.latestTickId = tickId;
-    });
-
     // server-side
-    this.socket.on("connect", () => {
-      console.log("socket id: " + this.socket.id); // ojIckSD2jqNzOqIrAGzL
+    const socket = io(process.env.socket_url);
+    // const socket = io("http://localhost:4000");
+
+    socket.on("connect", () => {
+      console.log("socket id: " + socket.id); // ojIckSD2jqNzOqIrAGzL
     });
 
-    this.socket.on("data_detail", (data) => {
+    socket.on("tick", (tick) => {
+      this.latestTickId = tick;
+    });
+
+    socket.on("data_detail", (data) => {
       console.log("data details: " + data);
       this.data = data;
     });
