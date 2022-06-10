@@ -97,6 +97,7 @@ export default {
     });
 
     socket.on("motor_stat", (motor) => {
+      console.log("color: " + motor);
       this.color = motor;
     });
   },
