@@ -2,7 +2,7 @@
   <v-row>
     <v-col cols="12">
       <v-row>
-        <v-col cols="12" sm="6">
+        <v-col cols="12" sm="4">
           <v-card class="mx-auto">
             <v-card-text>
               <div>Moisture Data</div>
@@ -16,14 +16,48 @@
           </v-card>
         </v-col>
         <v-col cols="12" sm="4">
-          <v-card class="mx-auto" max-width="344">
+          <v-card class="mx-auto">
             <v-card-text>
               <div>Threshold Value</div>
               <p class="text-h4 text--primary">{{ threshold }}</p>
+              <input
+                type="hidden"
+                name="threshold"
+                id="threshold"
+                :value="threshold"
+              />
             </v-card-text>
-            <v-card-actions>
-              <v-btn text color="deep-purple accent-4"> Learn More </v-btn>
+          </v-card>
+          <v-card class="mx-auto mb-2">
+            <v-card-text>
+              <div>Set Value</div>
+            </v-card-text>
+            <v-card-actions id="submit_threshold_value">
+              <v-btn
+                elevation="2"
+                x-large
+                value="minus"
+                v-on:click="set_threshold('minus')"
+                >-</v-btn
+              >
+              <v-btn
+                elevation="2"
+                x-large
+                value="plus"
+                v-on:click="set_threshold('plus')"
+                >+</v-btn
+              >
             </v-card-actions>
+          </v-card>
+          <v-card class="mx-auto">
+            <v-card-text>
+              <div>Motor Pump</div>
+              <p class="text-h4 text--primary" v-if="color == '#23C48E'">
+                Activated
+              </p>
+              <p class="text-h4" style="color: red" v-else>Deactivated</p>
+            </v-card-text>
+            <v-card-actions> </v-card-actions>
           </v-card>
         </v-col>
       </v-row>
@@ -47,6 +81,7 @@ export default {
     return {
       sensor_data: 0,
       threshold: 0,
+      color: "",
     };
   },
   mounted() {
@@ -58,6 +93,11 @@ export default {
 
     socket.on("threshold", (threshold) => {
       this.threshold = threshold;
+      console.log(threshold);
+    });
+
+    socket.on("motor_stat", (motor) => {
+      this.color = motor;
     });
   },
   computed: {
@@ -72,6 +112,30 @@ export default {
           },
         ],
       };
+    },
+  },
+  methods: {
+    set_threshold(e) {
+      if (e == "plus") {
+        if (this.threshold < 100) {
+          this.threshold++;
+        }
+      } else {
+        if (this.threshold > 0) {
+          this.threshold--;
+        }
+      }
+
+      this.$axios
+        .$post(process.env.socket_url + "/set_threshold", {
+          threshold: this.threshold,
+        })
+        .then((s) => {
+          console.log(s);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     },
   },
 };
