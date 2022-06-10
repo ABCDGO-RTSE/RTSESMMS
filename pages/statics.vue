@@ -52,7 +52,7 @@
           <v-card class="mx-auto">
             <v-card-text>
               <div>Motor Pump</div>
-              <p class="text-h4 text--primary" v-if="color == '#23C48E'">
+              <p class="text-h4 text--primary" v-if="color == 'green'">
                 Activated
               </p>
               <p class="text-h4" style="color: red" v-else>Deactivated</p>
