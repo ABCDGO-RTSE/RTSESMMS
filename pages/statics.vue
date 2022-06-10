@@ -18,13 +18,8 @@
         <v-col cols="12" sm="4">
           <v-card class="mx-auto" max-width="344">
             <v-card-text>
-              <div>Word of the Day</div>
-              <p class="text-h4 text--primary">be•nev•o•lent</p>
-              <p>adjective</p>
-              <div class="text--primary">
-                well meaning and kindly.<br />
-                "a benevolent smile"
-              </div>
+              <div>Threshold Value</div>
+              <p class="text-h4 text--primary">{{ threshold }}</p>
             </v-card-text>
             <v-card-actions>
               <v-btn text color="deep-purple accent-4"> Learn More </v-btn>
@@ -51,15 +46,19 @@ export default {
   data() {
     return {
       sensor_data: 0,
+      threshold: 0,
     };
   },
   mounted() {
-   const socket = io(process.env.socket_url);
+    const socket = io(process.env.socket_url);
     socket.on("receive_data", (data) => {
       // console.log("data details: " + data);
       this.sensor_data = data;
     });
 
+    socket.on("threshold", (threshold) => {
+      this.threshold = threshold;
+    });
   },
   computed: {
     barChartData: function () {
