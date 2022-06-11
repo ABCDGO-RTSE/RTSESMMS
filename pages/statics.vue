@@ -96,20 +96,7 @@ export default {
       this.sensor_data = data;
     });
 
-    this.$axios
-      .$get(process.env.socket_url + "/get_threshold")
-      .then((s) => {
-        // console.log(s);
-        this.threshold = s;
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-
-    // socket.on("threshold", (threshold) => {
-    //   this.threshold = threshold;
-    //   console.log(threshold);
-    // });
+    this.get_threshold();
 
     socket.on("motor_stat", (motor) => {
       console.log("color: " + motor);
@@ -149,10 +136,27 @@ export default {
         .then((s) => {
           // console.log(s);
           this.submited = false;
+          this.get_threshold();
         })
         .catch((e) => {
           console.log(e);
         });
+    },
+    get_threshold() {
+      this.$axios
+        .$get(process.env.socket_url + "/get_threshold")
+        .then((s) => {
+          // console.log(s);
+          this.threshold = s;
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+
+      // socket.on("threshold", (threshold) => {
+      //   this.threshold = threshold;
+      //   console.log(threshold);
+      // });
     },
   },
 };
