@@ -137,16 +137,13 @@ export default {
     set_threshold(e) {
       let operator = "";
       this.submited = true;
-      // console.log(this.submited);
+
       if (e == "plus") {
-        if (this.threshold < 100) {
-          operator = "plus";
-        }
+        operator = "plus";
       } else {
-        if (this.threshold > 0) {
-          operator = "minus";
-        }
+        operator = "minus";
       }
+      console.log(operator);
 
       this.$axios
         .$post(process.env.socket_url + "/set_threshold", {
