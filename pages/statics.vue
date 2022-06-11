@@ -32,10 +32,7 @@
             <v-card-text>
               <div>Set Value</div>
             </v-card-text>
-            <v-card-actions
-              id="submit_threshold_value"
-              v-if="submited == false"
-            >
+            <v-card-actions id="submit_threshold_value">
               <v-btn
                 elevation="2"
                 x-large
@@ -51,9 +48,9 @@
                 >+</v-btn
               >
             </v-card-actions>
-            <v-card-actions v-else>
+            <!-- <v-card-actions v-else>
               <v-btn x-large elevation="2">Loading...</v-btn>
-            </v-card-actions>
+            </v-card-actions> -->
           </v-card>
           <v-card class="mx-auto">
             <v-card-text>
