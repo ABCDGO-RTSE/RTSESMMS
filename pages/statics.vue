@@ -86,10 +86,21 @@ export default {
   },
   mounted() {
     const socket = io(process.env.socket_url);
+
     socket.on("receive_data", (data) => {
       // console.log("data details: " + data);
       this.sensor_data = data;
     });
+
+    this.$axios
+      .$get(process.env.socket_url + "/get_threshold")
+      .then((s) => {
+        // console.log(s);
+        this.threshold = s;
+      })
+      .catch((e) => {
+        console.log(e);
+      });
 
     socket.on("threshold", (threshold) => {
       this.threshold = threshold;
@@ -132,7 +143,7 @@ export default {
           threshold: this.threshold,
         })
         .then((s) => {
-          console.log(s);
+          // console.log(s);
         })
         .catch((e) => {
           console.log(e);
