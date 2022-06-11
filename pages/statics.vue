@@ -32,7 +32,7 @@
             <v-card-text>
               <div>Set Value</div>
             </v-card-text>
-            <v-card-actions id="submit_threshold_value">
+            <v-card-actions id="submit_threshold_value" v-if="submited == false">
               <v-btn
                 elevation="2"
                 x-large
@@ -47,6 +47,9 @@
                 v-on:click="set_threshold('plus')"
                 >+</v-btn
               >
+            </v-card-actions>
+            <v-card-actions v-else>
+              <v-btn x-large elevation="2">Loading...</v-btn>
             </v-card-actions>
           </v-card>
           <v-card class="mx-auto">
@@ -82,6 +85,7 @@ export default {
       sensor_data: 0,
       threshold: 0,
       color: "",
+      submited: false,
     };
   },
   mounted() {
@@ -102,10 +106,10 @@ export default {
         console.log(e);
       });
 
-    socket.on("threshold", (threshold) => {
-      this.threshold = threshold;
-      console.log(threshold);
-    });
+    // socket.on("threshold", (threshold) => {
+    //   this.threshold = threshold;
+    //   console.log(threshold);
+    // });
 
     socket.on("motor_stat", (motor) => {
       console.log("color: " + motor);
@@ -128,6 +132,8 @@ export default {
   },
   methods: {
     set_threshold(e) {
+      this.submited = true;
+      console.log(this.submited);
       if (e == "plus") {
         if (this.threshold < 100) {
           this.threshold++;
@@ -144,6 +150,7 @@ export default {
         })
         .then((s) => {
           // console.log(s);
+          this.submited = false;
         })
         .catch((e) => {
           console.log(e);
