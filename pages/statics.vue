@@ -32,7 +32,10 @@
             <v-card-text>
               <div>Set Value</div>
             </v-card-text>
-            <v-card-actions id="submit_threshold_value" v-if="submited == false">
+            <v-card-actions
+              id="submit_threshold_value"
+              v-if="submited == false"
+            >
               <v-btn
                 elevation="2"
                 x-large
@@ -132,21 +135,22 @@ export default {
   },
   methods: {
     set_threshold(e) {
+      let operator = "";
       this.submited = true;
-      console.log(this.submited);
+      // console.log(this.submited);
       if (e == "plus") {
         if (this.threshold < 100) {
-          this.threshold++;
+          operator = "plus";
         }
       } else {
         if (this.threshold > 0) {
-          this.threshold--;
+          operator = "minus";
         }
       }
 
       this.$axios
         .$post(process.env.socket_url + "/set_threshold", {
-          threshold: this.threshold,
+          threshold: operator,
         })
         .then((s) => {
           // console.log(s);
