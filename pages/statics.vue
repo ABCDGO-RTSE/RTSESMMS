@@ -48,6 +48,9 @@
                 >+</v-btn
               >
             </v-card-actions>
+            <!-- <v-card-actions v-else>
+              <v-btn x-large elevation="2">Loading...</v-btn>
+            </v-card-actions> -->
           </v-card>
           <v-card class="mx-auto">
             <v-card-text>
@@ -82,19 +85,18 @@ export default {
       sensor_data: 0,
       threshold: 0,
       color: "",
+      submited: false,
     };
   },
   mounted() {
     const socket = io(process.env.socket_url);
+
     socket.on("receive_data", (data) => {
       // console.log("data details: " + data);
       this.sensor_data = data;
     });
 
-    socket.on("threshold", (threshold) => {
-      this.threshold = threshold;
-      console.log(threshold);
-    });
+    this.get_threshold();
 
     socket.on("motor_stat", (motor) => {
       console.log("color: " + motor);
@@ -117,26 +119,44 @@ export default {
   },
   methods: {
     set_threshold(e) {
+      let operator = "";
+      this.submited = true;
+
       if (e == "plus") {
-        if (this.threshold < 100) {
-          this.threshold++;
-        }
+        operator = "plus";
       } else {
-        if (this.threshold > 0) {
-          this.threshold--;
-        }
+        operator = "minus";
       }
+      console.log(operator);
 
       this.$axios
         .$post(process.env.socket_url + "/set_threshold", {
-          threshold: this.threshold,
+          threshold: operator,
         })
         .then((s) => {
-          console.log(s);
+          // console.log(s);
+          this.submited = false;
+          this.get_threshold();
         })
         .catch((e) => {
           console.log(e);
         });
+    },
+    get_threshold() {
+      this.$axios
+        .$get(process.env.socket_url + "/get_threshold")
+        .then((s) => {
+          // console.log(s);
+          this.threshold = s;
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+
+      // socket.on("threshold", (threshold) => {
+      //   this.threshold = threshold;
+      //   console.log(threshold);
+      // });
     },
   },
 };
